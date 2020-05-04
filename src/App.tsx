@@ -5,7 +5,15 @@ import {makeStyles} from "@material-ui/core/styles";
 import List from "./components/List";
 import ListCard from "./components/ListCard";
 import IList from "./models/IList";
-import {DragDropContext, Draggable, DraggableLocation, Droppable, DropResult} from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Draggable,
+  DraggableLocation,
+  DraggingStyle,
+  Droppable,
+  DropResult,
+  NotDraggingStyle
+} from "react-beautiful-dnd";
 import ICard from "./models/ICard";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,6 +41,13 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   }),
 );
+
+function getCardStyle(isDragging: boolean, draggableStyles?: DraggingStyle | NotDraggingStyle | undefined) {
+  return {
+    cursor: 'pointer',
+    ...draggableStyles
+  }
+}
 
 function createList(id: number): IList {
   return {
@@ -116,7 +131,7 @@ export default function App() {
                                 {
                                   (provided, snapshot) => (
                                     <div
-                                      ref={provided.innerRef}
+                                      ref={provided.innerRef} style={getCardStyle(snapshot.isDragging, provided.draggableProps.style)}
                                       {...provided.draggableProps} {...provided.dragHandleProps}>
                                       <ListCard isDragging={snapshot.isDragging} {...card}/>
                                     </div>
