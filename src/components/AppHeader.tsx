@@ -25,7 +25,7 @@ export default function AppHeader() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar variant={"dense"}>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon/>
           </IconButton>
