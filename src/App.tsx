@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AppHeader from "./components/AppHeader";
-import {Grid, Container, createStyles, Theme, Toolbar} from "@material-ui/core";
+import {Container, createStyles, Grid, Theme, Toolbar} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import List from "./components/List";
+import ListCard from "./components/ListCard";
+import IList from "./models/IList";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,8 +32,20 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+function createList(id: number): IList {
+  return {
+    id,
+    title: `List #${id}`,
+    cards: Array.from({length: 4}, (v, k) => k)
+      .map((_, index) =>
+        ({id: parseInt(`${id}0${index}`, 10), title: `Card #${id}_1`})
+      )
+  }
+}
+
 export default function App() {
   const classes = useStyles();
+  const [state, ] = useState([createList(1), createList(2)]);
   return (
     <div>
       <AppHeader/>
@@ -41,11 +55,17 @@ export default function App() {
         </Toolbar>
         <Container maxWidth={"xl"} className={classes.container}>
           <Grid className={classes.gridContainer} container>
-            {[0, 1, 2].map((value) => (
-              <Grid key={value} item className={classes.gridItem}>
-                <List title={`Title #${value + 1}`} />
-              </Grid>
-            ))}
+            {
+              state.map(iList => (
+                <Grid key={iList.id} item className={classes.gridItem}>
+                  <List title={iList.title}>
+                    {iList.cards.map(card => (
+                      <ListCard title={card.title} key={card.id}/>
+                    ))}
+                  </List>
+                </Grid>))
+            }
+
           </Grid>
         </Container>
       </main>

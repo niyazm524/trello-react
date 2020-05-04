@@ -1,9 +1,10 @@
 import React from 'react';
-import {IconButton, InputBase, Paper} from "@material-ui/core";
+import {Button, IconButton, InputBase, Paper} from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import './List.sass'
+import AddIcon from "@material-ui/icons/Add";
 
-export default function List(props: {title: string}) {
+export default function List(props: {title: string, children?: React.ReactNode}) {
   return (
     <Paper elevation={1} className="list">
       <div className="list-header">
@@ -16,7 +17,12 @@ export default function List(props: {title: string}) {
           <MoreVertIcon />
         </IconButton>
       </div>
-
+      <div className="list-content">
+        {props.children}
+      </div>
+      <div className="list-footer">
+        <Button startIcon={<AddIcon />} variant={"text"} className="list-footer-button">Добавить карточку</Button>
+      </div>
 
     </Paper>
   )
