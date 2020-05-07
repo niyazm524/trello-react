@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import {Props} from "../containers/AppHeader";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-export default function AppHeader() {
+export default function AppHeader({isUserLogon}: Props) {
   const classes = useStyles();
 
   return (
@@ -34,7 +35,9 @@ export default function AppHeader() {
             Trello
           </Typography>
           <div className={classes.spacer} />
-          <Button color="inherit">Login</Button>
+          {
+            !isUserLogon && (<Button color="inherit">Login</Button>)
+          }
         </Toolbar>
       </AppBar>
     </div>

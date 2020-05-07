@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import AppHeader from "./components/AppHeader";
+import AppHeader from "./containers/AppHeader";
 import {BrowserRouter, Route, Switch} from "react-router-dom"
 
 
@@ -8,7 +8,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <div>
-        <AppHeader/>
+        <AppHeader />
         <main>
           <Suspense fallback={
             // <div style={{position: 'absolute', top: '50%', left: '50%', width: 60, height: 60, transform: 'translate(-30px, -30px)'}}>
