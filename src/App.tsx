@@ -18,6 +18,8 @@ export default function App() {
           }>
             <Switch>
               <Route exact path="/" component={lazy(() => import('./pages/BoardView'))} />
+              <Route path="/sign-up" component={lazy(() => import('./pages/SignUp'))} />
+              <Route path="/sign-in" component={lazy(() => import('./pages/SignIn'))} />
             </Switch>
           </Suspense>
         </main>
