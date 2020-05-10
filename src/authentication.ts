@@ -3,6 +3,7 @@ import api from './api';
 import store from "./store";
 import {UserAction} from "./store/reducers/userReducer";
 import {AxiosError} from "axios";
+import {IUserCredentials} from "./models/User";
 
 export default async function init(): Promise<void> {
   const token: string | null = localStorage.getItem('access_token') || null;
@@ -25,4 +26,10 @@ export default async function init(): Promise<void> {
 
 function isAxiosError(e: Error): e is AxiosError {
   return 'isAxiosError' in e && e['isAxiosError'] === true
+}
+
+export async function login(userCredentials: IUserCredentials) {
+  const {data} = await api.auth.login(userCredentials);
+  localStorage.setItem('access_token', data.token);
+  await init();
 }

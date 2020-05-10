@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Avatar, Button, TextField, Grid, Typography, Container} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {IUserCredentials} from "../models/User";
+import {login} from "../authentication";
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -27,6 +29,21 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [state, setState] = useState<IUserCredentials>({usernameOrEmail: '', password: ''});
+  const history = useHistory();
+
+  const onPassFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({...state, password: event.target.value})
+  };
+  const onUsernameOrEmailFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({...state, usernameOrEmail: event.target.value})
+  };
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    login(state)
+      .then(() => history.push('/'))
+      .catch(console.error);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -37,15 +54,17 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Вход
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={onSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
             id="email"
-            label="Почта"
+            label="Имя пользователя или почта"
             name="email"
+            value={state.usernameOrEmail}
+            onChange={onUsernameOrEmailFieldChange}
             autoComplete="email"
             autoFocus
           />
@@ -55,6 +74,8 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
+            value={state.password}
+            onChange={onPassFieldChange}
             label="Пароль"
             type="password"
             id="password"

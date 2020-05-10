@@ -9,3 +9,8 @@ export interface IUser {
 export interface INewUser extends IUser{
   password: string
 }
+
+export interface IUserCredentials {
+  usernameOrEmail: string
+  password: string
+}

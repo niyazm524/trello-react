@@ -1,5 +1,6 @@
 import axios from "./axios";
+import {IUserCredentials} from "../models/User";
 
 export default {
-  login: (username: string, password: string) => axios.post('/login', {username, password})
+  login: (userCredentials: IUserCredentials) => axios.post<{token: string}>('/login', userCredentials)
 }
