@@ -1,6 +1,7 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import AppHeader from "./containers/AppHeader";
-import {BrowserRouter, Route, Switch} from "react-router-dom"
+import {BrowserRouter} from "react-router-dom"
+import Routing from "./routing";
 
 
 export default function App() {
@@ -16,11 +17,7 @@ export default function App() {
             // </div>
             <div>Загрузка...</div>
           }>
-            <Switch>
-              <Route exact path="/" component={lazy(() => import('./pages/BoardView'))} />
-              <Route path="/sign-up" component={lazy(() => import('./pages/SignUp'))} />
-              <Route path="/sign-in" component={lazy(() => import('./pages/SignIn'))} />
-            </Switch>
+            <Routing/>
           </Suspense>
         </main>
       </div>

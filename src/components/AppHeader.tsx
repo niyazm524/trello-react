@@ -1,12 +1,9 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import {AppBar, Toolbar, Typography, Button, IconButton} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import {Props} from "../containers/AppHeader";
+import {Link as RouterLink} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -36,7 +33,7 @@ export default function AppHeader({isUserLogon}: Props) {
           </Typography>
           <div className={classes.spacer} />
           {
-            !isUserLogon && (<Button color="inherit">Login</Button>)
+            !isUserLogon && (<Button color="inherit" component={RouterLink} to="/sign-in">Войти</Button>)
           }
         </Toolbar>
       </AppBar>

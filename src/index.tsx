@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import {CssBaseline} from "@material-ui/core";
 import {Provider} from 'react-redux';
 import store from './store';
+import init from "./authentication";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +16,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+init();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
