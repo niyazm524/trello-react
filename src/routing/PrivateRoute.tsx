@@ -14,7 +14,7 @@ export default UserLogonStateConnector((
   return (
     <Route {...rest} render={({location}) =>
       // @ts-ignore
-      isUserLogon ? () => <Component /> : <Redirect to={
+      isUserLogon ? <Component /> : <Redirect to={
         {pathname: '/sign-in', state: {from: location}}
       }/>}>
     </Route>
