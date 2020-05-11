@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import AppHeader from "./containers/AppHeader";
 import {BrowserRouter} from "react-router-dom"
-import Routing from "./routing";
+import Routes from "./routes";
 
 
 export default function App() {
@@ -17,7 +17,7 @@ export default function App() {
             // </div>
             <div>Загрузка...</div>
           }>
-            <Routing/>
+            <Routes/>
           </Suspense>
         </main>
       </div>

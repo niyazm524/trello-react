@@ -4,7 +4,7 @@ import PrivateRoute from "./PrivateRoute";
 import AnonRoute from "./AnonRoute";
 
 
-export default function Routing() {
+export default function Routes() {
   return (
     <Switch>
       <PrivateRoute exact path="/" component={lazy(() => import('../pages/BoardView'))} />
