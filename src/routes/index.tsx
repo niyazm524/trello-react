@@ -7,7 +7,7 @@ import AnonRoute from "./AnonRoute";
 export default function Routes() {
   return (
     <Switch>
-      <PrivateRoute exact path="/" component={lazy(() => import('../pages/BoardView'))} />
+      <PrivateRoute exact path="/" component={lazy(() => import('../pages/BoardsListView'))} />
       <AnonRoute path="/sign-up" component={lazy(() => import('../pages/SignUp'))} />
       <AnonRoute path="/sign-in" component={lazy(() => import('../pages/SignIn'))} />
     </Switch>
