@@ -15,8 +15,7 @@ export default async function init(): Promise<void> {
     } catch (e) {
       if(isAxiosError(e)) {
         if(e.response?.status === 401) {
-          store.dispatch<UserAction>({type: 'LOGOUT'});
-          localStorage.removeItem('access_token');
+          await logout();
         }
       }
       console.error(e);
@@ -32,4 +31,9 @@ export async function login(userCredentials: IUserCredentials) {
   const {data} = await api.auth.login(userCredentials);
   localStorage.setItem('access_token', data.token);
   await init();
+}
+
+export async function logout(): Promise<void> {
+  store.dispatch<UserAction>({type: 'LOGOUT'});
+  localStorage.removeItem('access_token');
 }

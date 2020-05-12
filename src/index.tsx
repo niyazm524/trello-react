@@ -8,12 +8,12 @@ import store from './store';
 import init from "./authentication";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <CssBaseline />
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </div>,
   document.getElementById('root')
 );
 
