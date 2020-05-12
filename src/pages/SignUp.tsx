@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Avatar, Button, TextField, Grid, Typography, Container} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import api from '../api';
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -27,6 +28,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export default function SignUp() {
   const classes = useStyles();
+  const history = useHistory();
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const eventHandlerFromSetter = (setter: React.Dispatch<React.SetStateAction<string>>) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => setter(event.target.value);
+  const [firstNameHandler, lastNameHandler, usernameHandler, emailHandler, passwordHandler] =
+    [setFirstName, setLastName, setUsername, setEmail, setPassword].map(setter => eventHandlerFromSetter(setter));
+  const onSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    api.users.create({firstName, lastName, username, email, password})
+      .then(() => history.push({pathname: '/sign-in'}))
+  };
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -37,7 +54,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Регистрация
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={onSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -47,6 +64,8 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="firstName"
+                value={firstName}
+                onChange={firstNameHandler}
                 label="Имя"
                 autoFocus
               />
@@ -57,6 +76,8 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="lastName"
+                value={lastName}
+                onChange={lastNameHandler}
                 label="Фамилия"
                 name="lastName"
                 autoComplete="lname"
@@ -68,6 +89,8 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="username"
+                value={username}
+                onChange={usernameHandler}
                 label="Имя пользователя"
                 name="username"
                 autoComplete="username"
@@ -79,6 +102,8 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="email"
+                value={email}
+                onChange={emailHandler}
                 label="Почта"
                 name="email"
                 autoComplete="email"
@@ -93,6 +118,8 @@ export default function SignUp() {
                 label="Пароль"
                 type="password"
                 id="password"
+                value={password}
+                onChange={passwordHandler}
                 autoComplete="current-password"
               />
             </Grid>

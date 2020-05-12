@@ -4,6 +4,6 @@ import axios from "./axios";
 const endpoint = '/users';
 
 export default {
-  create: (user: INewUser) => axios.post<IUser>(endpoint, user),
+  create: (user: INewUser) => axios.post<IUser>(endpoint, user, {}),
   getSelf: () => axios.get<IUser>(`${endpoint}/self`)
 }
