@@ -1,5 +1,6 @@
 .board-toolbar
-  background-color: rgba(77,92,143,0.42)
+  background-color: rgba(77,92,143,0.62)
+  color: white
 
 .board-container
   padding: 0 3px
@@ -8,7 +9,19 @@
   .board-container-grid
     padding-top: 10px
     height: 100%
+    overflow-x: auto
+    flex-wrap: nowrap
 
   .grid-item
     padding: 2px
     overflow: hidden
+    width: 294px
+    min-width: 294px
+
+    &.grid-item-last .paper
+      width: 270px
+      min-width: 270px
+      margin-left: 10px
+      margin-right: 10px
+
+

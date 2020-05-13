@@ -3,6 +3,8 @@ import {Card, CardContent, Container, Grid, Typography} from "@material-ui/core"
 import {IBoard, INewBoard} from "../models/Board";
 import api from "../api";
 import AddBoardDialog from "../components/AddBoardDialog";
+import './BoardsListView.sass';
+import {Link} from "react-router-dom";
 
 export default function BoardsListView() {
   const [boards, setBoards] = useState<Array<IBoard>>([]);
@@ -23,17 +25,23 @@ export default function BoardsListView() {
           <AddBoardDialog open={createDialogOpen} setOpen={setCreateDialogOpen} createBoard={onCreateBoard}/>
         </Grid>
       </Grid>
-      <Grid container wrap="wrap">
+      <Grid container wrap="wrap" className="lists-grid">
         {
           boards.map(board => (
             <Grid key={board.id} item md={3}>
-              <Card>
-                <CardContent>
-                  <Typography variant={"h5"}>
-                    {board.title}
-                  </Typography>
-                </CardContent>
-              </Card>
+              <Link to={`/board/${board.id}`}>
+                <Card>
+                  <CardContent>
+                    <Typography variant={"h5"}>
+                      {board.title}
+                    </Typography>
+                    <Typography variant={"body2"}>
+                      {board.description || ''}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Link>
+
             </Grid>
           ))
         }

@@ -1,4 +1,5 @@
 import {IUser} from "./User";
+import IList from "./IList";
 
 interface IBaseBoard {
   title: string
@@ -9,6 +10,7 @@ interface IBaseBoard {
 
 export interface IBoard extends IBaseBoard {
   id: string
+  lists: IList[]
 }
 
 export interface INewBoard {
