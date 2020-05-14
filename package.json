@@ -21,7 +21,8 @@
     "react-router-dom": "latest",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "@material-ui/lab": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
