@@ -1,4 +1,4 @@
-import {setToken} from "./api/axios";
+import axios, {setToken} from "./api/axios";
 import api from './api';
 import store from "./store";
 import {UserAction} from "./store/reducers/userReducer";
@@ -22,6 +22,17 @@ export default async function init(): Promise<void> {
     }
   }
 }
+
+axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if(error.response) {
+    if(error.response.status === 401) {
+      return logout().then(() => Promise.reject(error));
+    }
+  }
+  return Promise.reject(error);
+});
 
 function isAxiosError(e: Error): e is AxiosError {
   return 'isAxiosError' in e && e['isAxiosError'] === true

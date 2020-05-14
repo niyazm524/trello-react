@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
-import {Button, IconButton, InputBase, Menu, Paper, MenuItem} from "@material-ui/core";
+import {IconButton, InputBase, Menu, Paper, MenuItem} from "@material-ui/core";
 import './List.sass'
-import AddIcon from "@material-ui/icons/Add";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import IList from "../models/IList";
+import ListCardAddButton from "./ListCardAddButton";
+import {INewCard} from "../models/ICard";
 
 export type ListProps = {
-  list: IList,
+  list: IList
   onDelete: (list: IList) => void
+  onAddCard: (list: IList, card: INewCard) => void
   children?: React.ReactNode
 }
 
 
-export default React.forwardRef((({list, onDelete, children}: ListProps, ref) => {
+export default React.forwardRef((({list, onDelete, onAddCard, children}: ListProps, ref) => {
   const [listTitle, setListTitle] = useState(list.title);
   const onTitleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === 13) {
@@ -21,19 +23,14 @@ export default React.forwardRef((({list, onDelete, children}: ListProps, ref) =>
   };
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
   const onDeleteClick = () => {
     handleClose();
     onDelete(list);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const addNewCard = (title: string) => onAddCard(list, {title});
 
   return (
     <Paper elevation={1} className="list" ref={ref}>
@@ -65,7 +62,7 @@ export default React.forwardRef((({list, onDelete, children}: ListProps, ref) =>
         {children}
       </div>
       <div className="list-footer">
-        <Button startIcon={<AddIcon/>} variant={"text"} className="list-footer-button">Добавить карточку</Button>
+        <ListCardAddButton addNewCard={addNewCard}/>
       </div>
     </Paper>
   )
