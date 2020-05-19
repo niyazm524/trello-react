@@ -29,7 +29,7 @@ export default function AddBoardDialog({open, setOpen, createBoard}: AddBoardDia
     <div>
       <IconButton size={"medium"} color="secondary" onClick={handleClickOpen}><AddIcon /></IconButton>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Создание новой доски</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Назовите новую доску

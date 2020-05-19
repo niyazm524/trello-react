@@ -10,3 +10,11 @@ export interface RootState {
   userReducer: UserState,
   toastReducer: ToastPropsState
 }
+
+export function showMessage(message: string) {
+  store.dispatch({type: 'SHOW_MESSAGE', payload: message})
+}
+
+export function showError(error: Error | string) {
+  store.dispatch({type: 'SHOW_ERROR', payload: error})
+}

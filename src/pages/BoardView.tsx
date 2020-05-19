@@ -23,7 +23,9 @@ export default function BoardView() {
     // eslint-disable-next-line
   }, []);
 
-  const onDragEnd = (result: DropResult) => onDragEndHelper(board, setBoard, result);
+  const onDragEnd = (result: DropResult) => {
+    onDragEndHelper(board, setBoard, result);
+  }
 
   const addNewList = (title: string) => {
     api.boards.addList(boardId, {title})
