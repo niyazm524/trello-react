@@ -1,7 +1,7 @@
 import {connect, ConnectedProps} from "react-redux";
 import {RootState} from "../store";
 import {UserActionType} from "../store/reducers/userReducer";
-import AppHeader from "../components/AppHeader";
+import AppHeader from "../components/AppHeader"
 
 const mapState = (state: RootState) => ({
   isUserLogon: state.userReducer != null && state.userReducer.id != null,

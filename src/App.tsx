@@ -2,8 +2,7 @@ import React, { Suspense } from 'react';
 import AppHeader from "./containers/AppHeader";
 import {BrowserRouter} from "react-router-dom"
 import Routes from "./routes";
-import {Snackbar} from "@material-ui/core";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
+import MessageToast from "./containers/MessageToast";
 
 
 export default function App() {
@@ -22,16 +21,8 @@ export default function App() {
             <Routes/>
           </Suspense>
         </main>
-        {/*<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>*/}
-        {/*  <Alert onClose={handleClose} severity="success">*/}
-        {/*    This is a success message!*/}
-        {/*  </Alert>*/}
-        {/*</Snackbar>*/}
+        <MessageToast />
       </div>
     </BrowserRouter>
   );
-}
-
-function Alert(props: AlertProps) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }

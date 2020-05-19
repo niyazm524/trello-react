@@ -26,6 +26,7 @@ export default async function init(): Promise<void> {
 axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
+  store.dispatch({type: 'SHOW_ERROR', payload: error})
   if(error.response) {
     if(error.response.status === 401) {
       return logout().then(() => Promise.reject(error));
