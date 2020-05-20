@@ -10,18 +10,25 @@ import {IBoard} from "../models/Board";
 import api from "../api";
 import LastListAddButton from "../components/LastListAddButton";
 import {onDragEndHelper} from "../helpers/BoardViewHelper";
-import {INewCard} from "../models/ICard";
+import ICard, {INewCard} from "../models/ICard";
+import CardDialog from "../components/CardDialog";
 
 
 export default function BoardView() {
   const {id: boardId} = useParams();
   const [board, setBoard] = useState<IBoard | null>();
+  const [selectedCard, setSelectedCard] = useState<{ listIndex: number, cardIndex: number } | null>(null);
   const loadBoard = () => api.boards.getById(boardId).then(({data: board}) => setBoard(board));
 
   useEffect(() => {
     loadBoard()
     // eslint-disable-next-line
   }, []);
+
+  const onCardViewClose = () => {
+    setSelectedCard(null);
+    loadBoard()
+  }
 
   const onDragEnd = (result: DropResult) => {
     onDragEndHelper(board, setBoard, result);
@@ -66,14 +73,14 @@ export default function BoardView() {
                       <Grid item className="grid-item">
                         <List ref={provided.innerRef} list={iList} onDelete={deleteList}
                               onAddCard={addCard} {...provided.droppableProps}>
-                          {iList.cards.map((card, index) => (
-                            <Draggable key={card.id} draggableId={`${iList.id}_${card.id}`} index={index}>
+                          {iList.cards.map((card, indexL) => (
+                            <Draggable key={card.id} draggableId={`${iList.id}_${card.id}`} index={indexL}>
                               {
                                 (provided, snapshot) => (
                                   <div
                                     ref={provided.innerRef}
                                     {...provided.draggableProps} {...provided.dragHandleProps}>
-                                    <ListCard isDragging={snapshot.isDragging} {...card}/>
+                                    <ListCard onClick={(card) => setSelectedCard({listIndex: index, cardIndex: indexL})} isDragging={snapshot.isDragging} card={card}/>
                                   </div>
                                 )
                               }
@@ -94,7 +101,7 @@ export default function BoardView() {
           </Grid>
         </Grid>
       </Container>
-
+      <CardDialog board={board} indices={selectedCard} onClose={onCardViewClose} />
     </div>
   )
 }
